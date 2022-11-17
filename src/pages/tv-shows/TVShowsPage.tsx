@@ -1,7 +1,7 @@
 import React from "react";
 
 const TVShowsPage = () => {
-  return <div>TVShowsPage</div>;
+  return <div>TVShows Page</div>;
 };
 
 export default TVShowsPage;

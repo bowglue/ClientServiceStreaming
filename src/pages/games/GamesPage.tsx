@@ -1,7 +1,7 @@
 import React from "react";
 
 const GamesPage = () => {
-  return <div>GamesPage</div>;
+  return <div>Games Page</div>;
 };
 
 export default GamesPage;
