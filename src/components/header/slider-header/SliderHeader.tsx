@@ -1,7 +1,7 @@
 import React from "react";
 
 const SliderHeader = () => {
-  return <div>Title Test V1</div>;
+  return <div>Title</div>;
 };
 
 export default SliderHeader;
