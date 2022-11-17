@@ -1,0 +1,32 @@
+.card-poster-video-container {
+  position: absolute;
+  left: calc(100% - 1px);
+  top: 0;
+  height: 100%;
+  animation: mountPosterAnimation 500ms ease forwards;
+  background-color: black;
+  overflow: hidden;
+}
+
+.card-poster-video-container video {
+  mask-image: linear-gradient(to left, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+}
+
+.card-poster-like-mute {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+}
+
+.card-poster-border-radius {
+  border-radius: 0 10px 10px 0;
+}
+
+@keyframes mountPosterAnimation {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 205%;
+  }
+}

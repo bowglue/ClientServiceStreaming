@@ -1,0 +1,8 @@
+.card-wide-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.card-wide-active {
+  transform: scale(1.5);
+}

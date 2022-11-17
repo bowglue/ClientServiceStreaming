@@ -1,0 +1,54 @@
+.card-wide-video-container {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% - 1px);
+  width: 100%;
+  background-color: black;
+  animation: mountWideAnimation 400ms ease forwards;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.card-wide-video-container video {
+  mask-image: linear-gradient(
+    to bottom,
+    rgb(0, 0, 0) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.card-wide-like-mute {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  transform: scale(calc(1 / 1.5));
+  transform-origin: 100% 0%;
+}
+
+.test-ok {
+  position: relative;
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+}
+
+.versace {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px 10px 0 0;
+  /* overflow: hidden; */
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes mountWideAnimation {
+  0% {
+    height: 0%;
+  }
+  100% {
+    height: 175%;
+  }
+}

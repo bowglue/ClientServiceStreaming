@@ -1,0 +1,25 @@
+.like-mute-container {
+  position: relative;
+  padding: 8px 10px;
+  background-color: rgba(22, 34, 44, 0.5);
+  border-radius: 5px;
+}
+
+.like-mute-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex: wrap;
+}
+
+.like-mute-divider {
+  border-left: 2px solid #38546d;
+  margin: 0 10px;
+}
+
+.like-mute-container img {
+  transition: transform 100ms ease;
+}
+
+.like-mute-container img:hover {
+  transform: scale(1.15);
+}
