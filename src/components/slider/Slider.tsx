@@ -24,40 +24,37 @@ const Slider = () => {
   };
 
   return (
-    <div className="row-container">
-      <div>Title</div>
-      <div
-        className="slider-container"
-        style={{ padding: sliderReactive.sliderPadding }}
-      >
-        <SliderButton
-          buttonWidth={sliderReactive.buttonWidth}
-          isVisible={sliderController instanceof SliderNextController}
-          onChangePage={handleChangePage}
-        />
+    <div
+      className="slider-container"
+      style={{ padding: sliderReactive.sliderPadding }}
+    >
+      <SliderButton
+        buttonWidth={sliderReactive.buttonWidth}
+        isVisible={sliderController instanceof SliderNextController}
+        onChangePage={handleChangePage}
+      />
 
-        <div
-          className={`slider-content ${slide ? "slider-animation" : ""} `}
-          style={{ transform: translation }}
-          ref={sliderRef}
-        >
-          {videos.length > 0
-            ? videos.map((video, index) => {
-                return (
-                  <CardSlider
-                    video={video}
-                    scaleOrigin={sliderController.scaleOrigin(index)}
-                    sliderRef={sliderRef.current!}
-                    width={sliderReactive.cardWidth!}
-                    padding={sliderReactive.itemPadding}
-                    index={index}
-                  />
-                );
-              })
-            : Array.from(Array(1).keys()).map((number, index) => {
-                return <div key={index} className="spinner"></div>;
-              })}
-        </div>
+      <div
+        className={`slider-content ${slide ? "slider-animation" : ""} `}
+        style={{ transform: translation }}
+        ref={sliderRef}
+      >
+        {videos.length > 0
+          ? videos.map((video, index) => {
+              return (
+                <CardSlider
+                  video={video}
+                  scaleOrigin={sliderController.scaleOrigin(index)}
+                  sliderRef={sliderRef.current!}
+                  width={sliderReactive.cardWidth!}
+                  padding={sliderReactive.itemPadding}
+                  index={index}
+                />
+              );
+            })
+          : Array.from(Array(1).keys()).map((number, index) => {
+              return <div key={index} className="spinner"></div>;
+            })}
       </div>
     </div>
   );
