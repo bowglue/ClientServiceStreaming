@@ -4,7 +4,12 @@
   width: 100%;
   height: 35vw;
   color: white;
-  /* background-color: rgba(0, 0, 0, 0.4); */
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .header-gradient {
@@ -13,8 +18,6 @@
   height: 100%;
   left: 0;
   bottom: 0;
-  /* backdrop-filter: blur(10px); */
-
   background-image: linear-gradient(
     180deg,
     hsla(240, 5%, 7%, 0) 0,
@@ -23,12 +26,6 @@
     hsla(240, 5%, 7%, 0.28) 64%,
     hsl(240, 5%, 7%)
   );
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .header-vignette {
