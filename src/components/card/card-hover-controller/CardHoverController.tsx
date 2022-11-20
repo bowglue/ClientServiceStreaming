@@ -4,13 +4,19 @@ export abstract class CardHoverController {
 
   handleMouseEnter(
     handleCardActive: Function,
+    translatePosterCards: string,
     cardRef?: HTMLDivElement | undefined,
     sliderRef?: HTMLDivElement | undefined,
     index?: number | undefined
   ): void {
     clearTimeout(this.timerRef);
     this.timerRef = setTimeout(() => {
-      this.mouseEnterImplementation(cardRef, sliderRef, index);
+      this.mouseEnterImplementation(
+        translatePosterCards,
+        cardRef,
+        sliderRef,
+        index
+      );
       handleCardActive(true);
     }, this.delay);
   }
@@ -27,6 +33,7 @@ export abstract class CardHoverController {
   }
 
   mouseEnterImplementation(
+    translatePosterCards: string,
     cardRef?: HTMLDivElement | undefined,
     sliderRef?: HTMLDivElement | undefined,
     index?: number | undefined

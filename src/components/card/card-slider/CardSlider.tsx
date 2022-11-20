@@ -15,7 +15,8 @@ import "./CardSlider.css";
 
 interface cardSliderPropsType {
   video: VideoInfo;
-  scaleOrigin: string;
+  scaleWideOrigin: string;
+  translatePosterCards: string;
   sliderRef: HTMLDivElement;
   width: number;
   padding: string;
@@ -24,7 +25,8 @@ interface cardSliderPropsType {
 
 const CardSlider = ({
   video,
-  scaleOrigin,
+  scaleWideOrigin,
+  translatePosterCards,
   sliderRef,
   width,
   padding,
@@ -56,6 +58,7 @@ const CardSlider = ({
   const _handleMouseEnter = (): void => {
     hoverController.current?.handleMouseEnter(
       handleCardActive,
+      translatePosterCards,
       cardRef.current!,
       sliderRef,
       index
@@ -83,7 +86,7 @@ const CardSlider = ({
         <CardActiveContext.Provider value={cardActive}>
           <CardWideHover
             video={video}
-            scaleOrigin={scaleOrigin}
+            scaleOrigin={scaleWideOrigin}
             cardActive={cardActive}
             mouseEnter={_handleMouseEnter}
             mouseLeave={_handleMouseLeave}
@@ -105,7 +108,8 @@ const CardSlider = ({
 };
 
 CardSlider.propTypes = {
-  scaleOrigin: PropTypes.string.isRequired,
+  scaleWideOrigin: PropTypes.string.isRequired,
+  translatePosterCards: PropTypes.string.isRequired,
   video: PropTypes.object.isRequired,
   sliderRef: PropTypes.object.isRequired,
   width: PropTypes.number.isRequired,
