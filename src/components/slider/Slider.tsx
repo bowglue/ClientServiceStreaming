@@ -10,10 +10,12 @@ import useSliderReactive from "./useSliderReactive";
 
 const Slider = () => {
   const designContext = useContext(DesignContext);
+  const sliderReactive = useSliderReactive();
+  const { slide, videos, translation, sliderController } = useSliderParams(
+    designContext,
+    sliderReactive
+  );
 
-  const { slide, videos, translation, sliderController } =
-    useSliderParams(designContext);
-  const sliderReactive = useSliderReactive(sliderController);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,6 +48,7 @@ const Slider = () => {
           ? videos.map((video, index) => {
               return (
                 <CardSlider
+                  key={index}
                   video={video}
                   scaleWideOrigin={sliderController.scaleWideOrigin(index)}
                   translatePosterCards={sliderController.translatePosterCards(
