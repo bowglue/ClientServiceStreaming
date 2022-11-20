@@ -5,10 +5,5 @@
 }
 
 .layout-main {
-  /* background-color: red; */
-  color: white;
-  /* position: absolute;
-  top: 35vw;
-  left: 0; */
   flex-grow: 1;
 }

@@ -64,51 +64,51 @@ export class SliderNextController extends SliderController {
     this.videos = this.rotateArray(this.videos, this.cardToSlide * -1);
   }
 
-  override handleResize(): void {
-    super.handleResize();
+  // override handleResize(): void {
+  //   super.handleResize();
 
-    if (
-      this.sliderReactive.prevCardsPerPage !== this.sliderReactive.cardsPerPage
-    ) {
-      const nbCards =
-        this.sliderReactive.prevCardsPerPage - this.sliderReactive.cardsPerPage;
-      this.updateCardIncrementatorOnResize();
-      this.updateTranslationOnResize();
+  //   if (
+  //     this.sliderReactive.prevCardsPerPage !== this.sliderReactive.cardsPerPage
+  //   ) {
+  //     const nbCards =
+  //       this.sliderReactive.prevCardsPerPage - this.sliderReactive.cardsPerPage;
+  //     this.updateCardIncrementatorOnResize();
+  //     this.updateTranslationOnResize();
 
-      if (
-        this.sliderReactive.prevCardsPerPage < this.sliderReactive.cardsPerPage
-      ) {
-        this.fetchVideo(
-          this.offsetRequestData(
-            this.cardIncremontator - 2 * this.sliderReactive.cardsPerPage,
-            1
-          ),
-          Math.abs(nbCards)
-        ).then((videosBefore) => {
-          this.fetchVideo(
-            this.offsetRequestData(this.cardIncremontator + 2, 1),
-            2 * Math.abs(nbCards)
-          ).then((videosAfter) => {
-            console.log(videosBefore);
-            console.log(videosAfter);
+  //     if (
+  //       this.sliderReactive.prevCardsPerPage < this.sliderReactive.cardsPerPage
+  //     ) {
+  //       this.fetchVideo(
+  //         this.offsetRequestData(
+  //           this.cardIncremontator - 2 * this.sliderReactive.cardsPerPage,
+  //           1
+  //         ),
+  //         Math.abs(nbCards)
+  //       ).then((videosBefore) => {
+  //         this.fetchVideo(
+  //           this.offsetRequestData(this.cardIncremontator + 2, 1),
+  //           2 * Math.abs(nbCards)
+  //         ).then((videosAfter) => {
+  //           console.log(videosBefore);
+  //           console.log(videosAfter);
 
-            this.videos = [
-              ...videosBefore,
-              ...this.videos.slice(1, -1),
-              ...videosAfter,
-            ];
-            this.setVideosRender(this.videos);
-          });
-        });
-        return;
-      }
-      this.videos = this.videos
-        .slice(1, -1)
-        .slice(nbCards, this.sliderReactive.cardsPerPage * 3 + nbCards);
-      this.setVideosRender(this.videos);
-      //this.rotateSliderOnResize(this.videos.slice(1, -1), nbCards);
-    }
-  }
+  //           this.videos = [
+  //             ...videosBefore,
+  //             ...this.videos.slice(1, -1),
+  //             ...videosAfter,
+  //           ];
+  //           this.setVideosRender(this.videos);
+  //         });
+  //       });
+  //       return;
+  //     }
+  //     this.videos = this.videos
+  //       .slice(1, -1)
+  //       .slice(nbCards, this.sliderReactive.cardsPerPage * 3 + nbCards);
+  //     this.setVideosRender(this.videos);
+  //     //this.rotateSliderOnResize(this.videos.slice(1, -1), nbCards);
+  //   }
+  // }
 
   override updateVideos(arr: VideoInfo[], incrementator: number = 0): void {
     this.videos = this.videos.slice(1, -1);
@@ -192,7 +192,7 @@ export class SliderNextController extends SliderController {
     this.setCardIncremontator(this.cardIncremontator);
   }
 
-  override scaleOrigin(index: number): string {
+  override scaleWideOrigin(index: number): string {
     switch (index) {
       case this.sliderReactive.cardsPerPage + 1:
         return "0% 50%";
@@ -200,6 +200,17 @@ export class SliderNextController extends SliderController {
         return "100% 50%";
       default:
         return "50% 50%";
+    }
+  }
+
+  override translatePosterCards(index: number): string {
+    switch (index) {
+      case 2 * this.sliderReactive.cardsPerPage - 1:
+        return "left";
+      case 2 * this.sliderReactive.cardsPerPage:
+        return "left";
+      default:
+        return "right";
     }
   }
 }

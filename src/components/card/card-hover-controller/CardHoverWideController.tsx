@@ -6,6 +6,7 @@ export class CardHoverWideController extends CardHoverController {
     this.delay = delay;
   }
   override mouseEnterImplementation(
+    translatePosterCards: string,
     cardRef?: HTMLDivElement | undefined,
     sliderRef?: HTMLDivElement | undefined,
     index?: number | undefined

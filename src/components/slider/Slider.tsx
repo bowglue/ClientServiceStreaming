@@ -6,11 +6,16 @@ import CardSlider from "../card/card-slider/CardSlider";
 import "./Slider.css";
 import { DesignContext } from "../../context/SliderContext";
 import SliderButton from "../button/slider-button/SliderButton";
+import useSliderReactive from "./useSliderReactive";
 
 const Slider = () => {
   const designContext = useContext(DesignContext);
-  const { sliderReactive, slide, videos, translation, sliderController } =
-    useSliderParams(designContext);
+  const sliderReactive = useSliderReactive();
+  const { slide, videos, translation, sliderController } = useSliderParams(
+    designContext,
+    sliderReactive
+  );
+
   const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -43,8 +48,12 @@ const Slider = () => {
           ? videos.map((video, index) => {
               return (
                 <CardSlider
+                  key={index}
                   video={video}
-                  scaleOrigin={sliderController.scaleOrigin(index)}
+                  scaleWideOrigin={sliderController.scaleWideOrigin(index)}
+                  translatePosterCards={sliderController.translatePosterCards(
+                    index
+                  )}
                   sliderRef={sliderRef.current!}
                   width={sliderReactive.cardWidth!}
                   padding={sliderReactive.itemPadding}

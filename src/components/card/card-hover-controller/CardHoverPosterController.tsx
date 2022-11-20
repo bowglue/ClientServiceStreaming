@@ -7,11 +7,12 @@ export class CardHoverPosterController extends CardHoverController {
   }
 
   override mouseEnterImplementation(
+    translatePosterCards: string,
     cardRef?: HTMLDivElement | undefined,
     sliderRef?: HTMLDivElement | undefined,
     index?: number | undefined
   ): void {
-    if (index !== 11 && index !== 12) {
+    if (translatePosterCards === "right") {
       Array.from(sliderRef!.children)
         .filter(
           (cardFiltered, indexChild) => indexChild > index! && cardFiltered
@@ -23,18 +24,15 @@ export class CardHoverPosterController extends CardHoverController {
       return;
     }
 
-    if (index === 11 || index === 12) {
-      Array.from(sliderRef!.children)
-        .filter(
-          (cardFiltered, indexChild) =>
-            indexChild <= index && (cardFiltered as HTMLElement)
-        )
-        .map((card) => {
-          return ((card.children[0] as HTMLElement).style.transform =
-            "translateX(calc(-200% - 4*0.2vw))");
-        });
-      return;
-    }
+    Array.from(sliderRef!.children)
+      .filter(
+        (cardFiltered, indexChild) =>
+          indexChild <= index! && (cardFiltered as HTMLElement)
+      )
+      .map((card) => {
+        return ((card.children[0] as HTMLElement).style.transform =
+          "translateX(calc(-200% - 4*0.2vw))");
+      });
   }
 
   override handleMouseLeave(

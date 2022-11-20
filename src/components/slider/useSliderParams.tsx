@@ -1,10 +1,11 @@
+import { ComponentPropsWithRef } from "@react-spring/types";
 import { useState } from "react";
 import VideoInfo from "../../interface/VideoInterface";
 import SliderController from "./SliderController";
 import SliderEntryController from "./SliderEntryController";
 import useSliderReactive from "./useSliderReactive";
 
-const useSliderParams = (designContext: string) => {
+const useSliderParams = (designContext: string, sliderReactive: any) => {
   const sliderEntryController = new SliderEntryController();
 
   const [slide, setSlide] = useState<boolean>(false);
@@ -17,8 +18,6 @@ const useSliderParams = (designContext: string) => {
   const [sliderController, setSliderController] = useState<SliderController>(
     sliderEntryController
   );
-
-  const sliderReactive = useSliderReactive(sliderController);
 
   const sliderParams = {
     sliderReactive,

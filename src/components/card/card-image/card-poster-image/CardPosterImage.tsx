@@ -18,10 +18,14 @@ const CardPosterImage = ({
   const cardActive = useContext(CardActiveContext);
   return (
     <div
-      className={`card-poster-image `}
+      className={`card-poster-image-container `}
       style={{ borderRadius: cardActive ? "10px 0 0 10px" : "10px" }}
     >
-      <img src={"data:image/webp;base64," + cardImage} alt="Poster" />
+      <img
+        style={{ width: "100%" }}
+        src={"data:image/webp;base64," + cardImage}
+        alt="Poster"
+      />
       <div
         className={`card-poster-gradient-image-default ${
           cardActive && "card-poster-gradient-image-active"
@@ -34,7 +38,11 @@ const CardPosterImage = ({
       >
         <div className="card-poster-bottom-wrapper">
           <div className="card-poster-title-image">
-            <img src={"data:image/webp;base64," + titleImage} alt="title" />
+            <img
+              style={{ width: "100%" }}
+              src={"data:image/webp;base64," + titleImage}
+              alt="title"
+            />
           </div>
 
           <div

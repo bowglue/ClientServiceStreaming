@@ -21,13 +21,18 @@ const CardWideImage = ({ cardImage, titleImage }: CardWideImagetPropsType) => {
         className={`${
           cardActive ? " card-wide-image-active" : "card-wide-image"
         }`}
+        style={{ width: "100%", objectFit: "cover" }}
         src={"data:image/webp;base64," + cardImage}
         alt="Movie"
       />
 
       <div className="card-wide-wrapper-container">
         <div className="card-wide-wrapper-bottom">
-          <img src={"data:image/webp;base64," + titleImage} alt="Movie" />
+          <img
+            style={{ width: "100%" }}
+            src={"data:image/webp;base64," + titleImage}
+            alt="Movie"
+          />
         </div>
       </div>
     </div>

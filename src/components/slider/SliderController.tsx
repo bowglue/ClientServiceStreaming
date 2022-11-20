@@ -28,7 +28,10 @@ export abstract class SliderController {
   updateRenderImageLeft(): void {}
   resetCardPosition(): void {}
   updateVideos(arr: VideoInfo[], incrementator: number = 0): void {}
-  scaleOrigin(index: number): string {
+  scaleWideOrigin(index: number): string {
+    return "";
+  }
+  translatePosterCards(index: number): string {
     return "";
   }
 
@@ -42,34 +45,6 @@ export abstract class SliderController {
       this.setVideos(videos);
       this.cardsController();
     });
-  }
-
-  handleResize(): void {
-    this.sliderReactive.prevCardsPerPage = this.sliderReactive.cardsPerPage;
-    if (window.innerWidth <= 1000) {
-      this.sliderReactive.cardsPerPage = 2;
-      this.sliderReactive.setSliderPadding("0 5.5vw");
-      this.sliderReactive.setItemPadding("0 0.5vw");
-      this.sliderReactive.setButtonWidth(`${5.5 - 0.5}vw`);
-      this.sliderReactive.setCardWidth(100 / 2);
-      this.sliderReactive.setTranslateLength(-(100 + 100 / 2));
-    } else if (window.innerWidth <= 1800) {
-      this.sliderReactive.cardsPerPage = 4;
-      this.sliderReactive.setSliderPadding("0 3.5vw");
-      this.sliderReactive.setItemPadding("0 0.3vw");
-      this.sliderReactive.setButtonWidth(`${3.5 - 0.3}vw`);
-      this.sliderReactive.setCardWidth(100 / 4);
-      this.sliderReactive.setTranslateLength(-(100 + 100 / 4));
-    } else {
-      this.sliderReactive.cardsPerPage = 6;
-      this.sliderReactive.setSliderPadding("0 2.5vw");
-      this.sliderReactive.setItemPadding("0 0.2vw");
-      this.sliderReactive.setButtonWidth(`${2.5 - 0.2}vw`);
-      this.sliderReactive.setCardWidth(100 / 6);
-      this.sliderReactive.setTranslateLength(-(100 + 100 / 6));
-    }
-    this.sliderReactive.setCardsPerPage(this.sliderReactive.cardsPerPage);
-    this.sliderReactive.setPrevCardsPerPage(this.sliderReactive.cardsPerPage);
   }
 
   setSliderParams(sliderParams: any, designContext: string): void {
