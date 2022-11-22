@@ -20,14 +20,12 @@ export class SliderNextController extends SliderController {
         incrementator
       ),
       this.numberRequestData(incrementator)
-    ).then((videos) => {
-      this.videosNext = videos;
+    ).then((data) => {
+      // this.videosNext = data.content;
       // console.log({ Requested: videos });
-      this.updateVideos(videos, incrementator);
+      this.updateVideos(data.content, incrementator);
+      this.handleTranslateDurationContentPosition(incrementator);
     });
-    setTimeout(() => {
-      this.resetContentPosition(incrementator);
-    }, 700);
   }
 
   override resetContentPosition(incrementator: number): void {
@@ -37,9 +35,6 @@ export class SliderNextController extends SliderController {
         currentVideos.slice(1, -1),
         incrementator * this.cardToSlide
       );
-      // console.log({
-      //   final: videoRotate.slice(0, this.sliderReactive.current.cardsPerPage * 3),
-      // });
       return this.setVideosRender(
         videoRotate.slice(0, this.sliderReactive.current.cardsPerPage * 3)
       );
@@ -92,39 +87,62 @@ export class SliderNextController extends SliderController {
   //   }
   // }
 
-  override updateVideos(arr: VideoInfo[], incrementator: number): void {
+  override updateVideos(nextVideos: VideoInfo[], incrementator: number): void {
     this.sliderParams.handleVideos((currentVideos: VideoInfo[]) => {
       if (this.cardToSlide === this.sliderReactive.current.cardsPerPage) {
-        const appendVideos = [...currentVideos.slice(1, -1), ...arr];
-        // console.log({ Merged: appendVideos });
+        const appendVideos = [...currentVideos.slice(1, -1), ...nextVideos];
         return this.setVideosRender(appendVideos);
       }
 
-      const modulo =
-        (currentVideos.length + arr.length) %
+      const cardsDifference =
+        (currentVideos.length + nextVideos.length) %
         (this.sliderReactive.current.cardsPerPage * 4);
 
       if (incrementator > 0) {
-        const appendVideos = [
-          ...currentVideos.slice(1, currentVideos.length - modulo - 1),
-          ...arr,
-        ];
-        // console.log({ Merged: appendVideos });
-        return this.setVideosRender(appendVideos);
+        return this.updateVideosRightEdge(
+          currentVideos,
+          cardsDifference,
+          nextVideos
+        );
       }
 
-      const appendVideos = [
-        ...arr.slice(
-          this.sliderReactive.current.cardsPerPage - modulo,
-          this.sliderReactive.current.cardsPerPage
-        ),
-        ...currentVideos.slice(modulo + 1, -1),
-        ...arr.slice(0, this.sliderReactive.current.cardsPerPage - modulo),
-      ];
-
-      // console.log({ Merged: appendVideos });
-      return this.setVideosRender(appendVideos);
+      return this.updateVideosLefttEdge(
+        currentVideos,
+        cardsDifference,
+        nextVideos
+      );
     });
+  }
+
+  updateVideosRightEdge(
+    currentVideos: VideoInfo[],
+    cardsDifference: number,
+    nextVideos: VideoInfo[]
+  ): VideoInfo[] {
+    const appendVideos = [
+      ...currentVideos.slice(1, currentVideos.length - cardsDifference - 1),
+      ...nextVideos,
+    ];
+    return this.setVideosRender(appendVideos);
+  }
+
+  updateVideosLefttEdge(
+    currentVideos: VideoInfo[],
+    cardsDifference: number,
+    nextVideos: VideoInfo[]
+  ): VideoInfo[] {
+    const appendVideos = [
+      ...nextVideos.slice(
+        this.sliderReactive.current.cardsPerPage - cardsDifference,
+        this.sliderReactive.current.cardsPerPage
+      ),
+      ...currentVideos.slice(cardsDifference + 1, -1),
+      ...nextVideos.slice(
+        0,
+        this.sliderReactive.current.cardsPerPage - cardsDifference
+      ),
+    ];
+    return this.setVideosRender(appendVideos);
   }
 
   // rotateSliderOnResize(videos: VideoInfo[], nbCards: number): void {

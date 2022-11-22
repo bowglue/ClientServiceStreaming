@@ -4,10 +4,21 @@ import { SliderReactiveInfoInterface } from "../../interface/SliderReactiveInter
 import VideoInfo from "../../interface/VideoInterface";
 
 export abstract class SliderController {
+  constructor(
+    sliderParams: SliderParamsInterface,
+    sliderReactive: React.MutableRefObject<SliderReactiveInfoInterface>,
+    designContext: string
+  ) {
+    this.sliderParams = sliderParams;
+    this.sliderReactive = sliderReactive;
+    this.designContext = designContext;
+  }
+
   sliderReactive!: React.MutableRefObject<SliderReactiveInfoInterface>;
   sliderParams!: SliderParamsInterface;
   cardToSlide: number = 0;
   designContext!: string;
+  requestDuration!: number;
 
   translatePage(incrementator: number): void {
     this.cardsController(incrementator);
@@ -26,26 +37,28 @@ export abstract class SliderController {
     return "";
   }
 
-  initializeSlider(
-    sliderParams: SliderParamsInterface,
-    sliderReactive: React.MutableRefObject<SliderReactiveInfoInterface>,
-    designContext: string
-  ): void {
-    this.sliderParams = sliderParams;
-    this.sliderReactive = sliderReactive;
-    this.designContext = designContext;
+  handleTranslateDurationContentPosition(incrementator: number): void {
+    const timeoutLength =
+      this.requestDuration <= 700
+        ? 700 - this.requestDuration
+        : this.requestDuration;
+    setTimeout(() => {
+      this.resetContentPosition(incrementator);
+    }, timeoutLength);
   }
 
   initializeVideos(): void {
     this.fetchVideo(0, this.sliderReactive.current.cardsPerPage * 2).then(
-      (videos) => {
-        this.sliderParams.handleVideos(videos);
+      (data) => {
+        this.sliderParams.handleVideos(data.content);
+        this.sliderParams.totalCardsRef.current = data.totalElements;
         this.cardsController();
       }
     );
   }
 
-  async fetchVideo(offset: number, nbElement: number): Promise<VideoInfo[]> {
+  async fetchVideo(offset: number, nbElement: number): Promise<any> {
+    const requestStart = performance.now();
     const { data } = await axios({
       method: "get",
       url: "/api/v1/movie/" + this.designContext,
@@ -54,10 +67,11 @@ export abstract class SliderController {
         size: nbElement,
       },
     });
+    const requestEnd = performance.now();
+    this.requestDuration = requestEnd - requestStart;
+    console.log(this.requestDuration);
 
-    // this.sliderParams.handleTotalCards(data.totalElements);
-    this.sliderParams.totalCardsRef.current = data.totalElements;
-    return data.content;
+    return data;
   }
 
   setVideosRender(arr: VideoInfo[]): VideoInfo[] {

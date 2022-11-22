@@ -14,13 +14,10 @@ export class SliderEntryController extends SliderController {
     this.fetchVideo(
       this.sliderParams.cardIncrementRef.current,
       this.sliderReactive.current.cardsPerPage
-    ).then((videos) => {
-      this.updateVideos(videos);
+    ).then((data) => {
+      this.updateVideos(data.content);
+      this.handleTranslateDurationContentPosition(incrementator);
     });
-
-    setTimeout(() => {
-      this.resetContentPosition(incrementator);
-    }, 700);
   }
 
   override resetContentPosition(incrementator: number): void {
@@ -29,8 +26,14 @@ export class SliderEntryController extends SliderController {
     this.sliderParams.handleVideos((currentVideos: VideoInfo[]) => {
       return this.setVideosRender(currentVideos);
     });
-    this.sliderParams.sliderControllerRef.current = new SliderNextController();
+    //this.sliderParams.sliderControllerRef.current = new SliderNextController();
     // this.sliderParams.translationRef.current = translate;
+
+    this.sliderParams.handleSliderController(
+      this.sliderParams,
+      this.sliderReactive,
+      this.designContext
+    );
   }
 
   // override handleResize(): void {
