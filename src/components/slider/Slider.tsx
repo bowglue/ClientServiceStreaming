@@ -2,20 +2,15 @@ import { useContext, useEffect, useRef } from "react";
 import SliderNextController from "./SliderNextController";
 import useSliderParams from "./useSliderParams";
 
-import CardSlider from "../card/card-slider/CardSlider";
-import "./Slider.css";
 import { DesignContext } from "../../context/SliderContext";
 import SliderButton from "../button/slider-button/SliderButton";
-import useSliderReactive from "./useSliderReactive";
+import CardSlider from "../card/card-slider/CardSlider";
+import "./Slider.css";
 
 const Slider = () => {
   const designContext = useContext(DesignContext);
-  const sliderReactive = useSliderReactive();
-  const { slide, videos, translation, sliderController } = useSliderParams(
-    designContext,
-    sliderReactive
-  );
-
+  const { sliderParams, sliderController, sliderReactiveCss } =
+    useSliderParams(designContext);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,7 +18,7 @@ const Slider = () => {
   }, []);
 
   const handleChangePage = (incrementator: number) => {
-    if (!slide) {
+    if (!sliderParams.slideRef.current) {
       sliderController.translatePage(incrementator);
     }
   };
@@ -31,21 +26,23 @@ const Slider = () => {
   return (
     <div
       className="slider-container"
-      style={{ padding: sliderReactive.sliderPadding }}
+      style={{ padding: sliderReactiveCss.sliderPadding }}
     >
       <SliderButton
-        buttonWidth={sliderReactive.buttonWidth}
+        buttonWidth={sliderReactiveCss.buttonWidth}
         isVisible={sliderController instanceof SliderNextController}
         onChangePage={handleChangePage}
       />
 
       <div
-        className={`slider-content ${slide ? "slider-animation" : ""} `}
-        style={{ transform: translation }}
+        className={`slider-content ${
+          sliderParams.slideRef.current ? "slider-animation" : ""
+        } `}
+        style={{ transform: sliderParams.translation }}
         ref={sliderRef}
       >
-        {videos.length > 0
-          ? videos.map((video, index) => {
+        {sliderParams.videos.length > 0
+          ? sliderParams.videos.map((video, index) => {
               return (
                 <CardSlider
                   key={index}
@@ -55,8 +52,8 @@ const Slider = () => {
                     index
                   )}
                   sliderRef={sliderRef.current!}
-                  width={sliderReactive.cardWidth!}
-                  padding={sliderReactive.itemPadding}
+                  width={sliderReactiveCss.cardWidth!}
+                  padding={sliderReactiveCss.itemPadding}
                   index={index}
                 />
               );

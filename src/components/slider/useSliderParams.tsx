@@ -1,47 +1,49 @@
-import { ComponentPropsWithRef } from "@react-spring/types";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import VideoInfo from "../../interface/VideoInterface";
 import SliderController from "./SliderController";
 import SliderEntryController from "./SliderEntryController";
 import useSliderReactive from "./useSliderReactive";
 
-const useSliderParams = (designContext: string, sliderReactive: any) => {
-  const sliderEntryController = new SliderEntryController();
-
-  const [slide, setSlide] = useState<boolean>(false);
+const useSliderParams = (designContext: string) => {
+  const { sliderReactiveCss, sliderReactiveInfoRef } = useSliderReactive();
+  const totalCardsRef = useRef<number>(0);
+  const cardIncrementRef = useRef<number>(0);
+  const slideRef = useRef<boolean>(false);
+  const sliderControllerRef = useRef<SliderController>(
+    new SliderEntryController()
+  );
   const [translation, setTranslation] = useState<string>("");
   const [videos, setVideos] = useState<VideoInfo[]>([]);
-  const [totalCards, setTotalCards] = useState<number>(0);
-  const [page, setPage] = useState<number>(0);
-  const [cardIncremontator, setCardIncremontator] = useState<number>(0);
-  const [requestedCards, setRequestedCards] = useState<boolean[]>([]);
-  const [sliderController, setSliderController] = useState<SliderController>(
-    sliderEntryController
-  );
 
-  const sliderParams = {
-    sliderReactive,
-    slide,
-    videos,
-    totalCards,
-    translation,
-    page,
-    cardIncremontator,
-    requestedCards,
-    sliderController,
-    setSlide,
-    setVideos,
-    setTotalCards,
-    setTranslation,
-    setPage,
-    setCardIncremontator,
-    setRequestedCards,
-    setSliderController,
+  const handleTranslation = (translation: string): void => {
+    setTranslation(translation);
+  };
+  const handleVideos = (videos: VideoInfo[]): void => {
+    setVideos(videos);
   };
 
-  sliderController.setSliderParams(sliderParams, designContext);
+  const sliderParams = {
+    slideRef,
+    totalCardsRef,
+    cardIncrementRef,
+    sliderControllerRef,
+    translation,
+    videos,
+    handleTranslation,
+    handleVideos,
+  };
 
-  return sliderParams;
+  sliderControllerRef.current.initializeSlider(
+    sliderParams,
+    sliderReactiveInfoRef,
+    designContext
+  );
+
+  return {
+    sliderParams: sliderParams,
+    sliderController: sliderControllerRef.current,
+    sliderReactiveCss: sliderReactiveCss,
+  };
 };
 
 export default useSliderParams;

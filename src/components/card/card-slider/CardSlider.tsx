@@ -18,7 +18,7 @@ interface cardSliderPropsType {
   scaleWideOrigin: string;
   translatePosterCards: string;
   sliderRef: HTMLDivElement;
-  width: number;
+  width: string;
   padding: string;
   index: number;
 }
@@ -79,8 +79,8 @@ const CardSlider = ({
 
   return (
     <div
-      className="card-slider-container"
-      style={{ width: `${width}%`, padding: padding }}
+      className={`card-slider-container ${index + 1}`}
+      style={{ width: width, padding: padding }}
     >
       {designContext === WIDECONTEXT ? (
         <CardActiveContext.Provider value={cardActive}>
@@ -112,7 +112,7 @@ CardSlider.propTypes = {
   translatePosterCards: PropTypes.string.isRequired,
   video: PropTypes.object.isRequired,
   sliderRef: PropTypes.object.isRequired,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.string.isRequired,
   padding: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
 };
