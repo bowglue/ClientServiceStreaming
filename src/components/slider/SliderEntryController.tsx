@@ -5,59 +5,59 @@ import SliderNextController from "./SliderNextController";
 export class SliderEntryController extends SliderController {
   override translatePage(incrementator: number): void {
     super.translatePage(incrementator);
-
-    this.setSliderController(new SliderNextController());
-    const translate = `translateX(${
-      incrementator * -(this.sliderReactive.cardWidth * this.cardToSlide)
+    const translateLength = `translateX(${
+      incrementator *
+      -(this.sliderReactive.current.cardWidth * this.cardToSlide)
     }%)`;
-
-    this.setTranslation(translate);
-    this.setSlide(true);
+    this.sliderParams.handleTranslation(translateLength);
 
     this.fetchVideo(
-      this.cardIncremontator,
-      this.sliderReactive.cardsPerPage
+      this.sliderParams.cardIncrementRef.current,
+      this.sliderReactive.current.cardsPerPage
     ).then((videos) => {
       this.updateVideos(videos);
-      setTimeout(() => {
-        this.resetContentPosition(incrementator);
-      }, 700);
     });
+
+    setTimeout(() => {
+      this.resetContentPosition(incrementator);
+    }, 700);
   }
 
-  override resetContentPosition(incrementor: number): void {
-    const translate = `translateX(${this.sliderReactive.translateLength}%)`;
-    this.setVideosRender(this.videos);
+  override resetContentPosition(incrementator: number): void {
+    super.resetContentPosition(incrementator);
 
-    this.setTranslation(translate);
-    this.setSlide(false);
+    this.sliderParams.handleVideos((currentVideos: VideoInfo[]) => {
+      return this.setVideosRender(currentVideos);
+    });
+    this.sliderParams.sliderControllerRef.current = new SliderNextController();
+    // this.sliderParams.translationRef.current = translate;
   }
 
   // override handleResize(): void {
   //   super.handleResize();
   //   if (
-  //     this.sliderReactive.prevCardsPerPage !== this.sliderReactive.cardsPerPage
+  //     this.sliderReactive.current.prevCardsPerPage !== this.sliderReactive.current.cardsPerPage
   //   ) {
-  //     this.videos = this.videos.slice(0, this.sliderReactive.cardsPerPage * 2);
+  //     this.videos = this.videos.slice(0, this.sliderReactive.current.cardsPerPage * 2);
   //     this.setVideos(this.videos);
 
   //     this.cardIncremontator =
   //       this.cardIncremontator +
-  //       this.sliderReactive.cardsPerPage -
-  //       this.sliderReactive.prevCardsPerPage;
+  //       this.sliderReactive.current.cardsPerPage -
+  //       this.sliderReactive.current.prevCardsPerPage;
   //     this.setCardIncremontator(this.cardIncremontator);
   //   }
 
   //   if (
-  //     this.sliderReactive.prevCardsPerPage < this.sliderReactive.cardsPerPage
+  //     this.sliderReactive.current.prevCardsPerPage < this.sliderReactive.current.cardsPerPage
   //   ) {
   //     const nbCards =
   //       2 *
-  //       (this.sliderReactive.cardsPerPage -
-  //         this.sliderReactive.prevCardsPerPage);
+  //       (this.sliderReactive.current.cardsPerPage -
+  //         this.sliderReactive.current.prevCardsPerPage);
 
   //     this.fetchVideo(
-  //       this.offsetRequestData(this.sliderReactive.prevCardsPerPage * 2, 1),
+  //       this.offsetRequestData(this.sliderReactive.current.prevCardsPerPage * 2, 1),
   //       nbCards
   //     ).then((videos) => {
   //       console.log(videos);
@@ -68,8 +68,9 @@ export class SliderEntryController extends SliderController {
   // }
 
   override updateVideos(arr: VideoInfo[]): void {
-    this.videos = [...this.videos, ...arr];
-    this.setVideos(this.videos);
+    this.sliderParams.handleVideos((currentVideos: VideoInfo[]) => {
+      return [...currentVideos, ...arr];
+    });
   }
 
   override scaleWideOrigin(index: number): string {
@@ -77,7 +78,7 @@ export class SliderEntryController extends SliderController {
       case 0:
         return "0% 50%";
 
-      case this.sliderReactive.cardsPerPage - 1:
+      case this.sliderReactive.current.cardsPerPage - 1:
         return "100% 50%";
 
       default:
@@ -87,9 +88,9 @@ export class SliderEntryController extends SliderController {
 
   override translatePosterCards(index: number): string {
     switch (index) {
-      case this.sliderReactive.cardsPerPage - 2:
+      case this.sliderReactive.current.cardsPerPage - 2:
         return "left";
-      case this.sliderReactive.cardsPerPage - 1:
+      case this.sliderReactive.current.cardsPerPage - 1:
         return "left";
       default:
         return "right";
