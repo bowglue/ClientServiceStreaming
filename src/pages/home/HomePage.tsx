@@ -1,16 +1,15 @@
-import React from "react";
-import RowSlider from "../../components/row-slider/RowSlider";
 import { POSTERCONTEXT } from "../../context/DesignContext";
 import { DesignContext } from "../../context/SliderContext";
+import SliderContainer from "../../feature/slider/components/slider-container/SliderContainer";
 
 const HomePage = () => {
   return (
     <>
-      <RowSlider />
+      <SliderContainer />
       <DesignContext.Provider value={POSTERCONTEXT}>
-        <RowSlider />
+        <SliderContainer />
       </DesignContext.Provider>
-      <RowSlider />
+      <SliderContainer />
     </>
   );
 };

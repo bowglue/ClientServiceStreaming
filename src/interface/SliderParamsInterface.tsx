@@ -1,4 +1,3 @@
-import SliderController from "../components/slider/SliderController";
 import VideoInfo from "./VideoInterface";
 
 export interface SliderParamsInterface {

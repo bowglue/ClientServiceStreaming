@@ -1,10 +1,10 @@
 import { LegacyRef, MouseEventHandler } from "react";
 import VideoInfo from "../../../../interface/VideoInterface";
-import CardActive from "../../card-active/CardActive";
-import CardWideImage from "../../card-image/card-wide-image/CardWideImage";
 import PropTypes from "prop-types";
 
 import "./CardWideHover.css";
+import CardWideImage from "../../card-wide/card-wide-image/CardWideImage";
+import CardWideVideo from "../../card-wide/card-wide-video/CardWideVideo";
 
 interface cardWideHoverPropsType {
   cardActive: boolean;
@@ -38,7 +38,7 @@ const CardWideHover = ({
         cardImage={video.wide_image}
         titleImage={video.title_image}
       />
-      {cardActive && <CardActive video={video} />}
+      {cardActive && <CardWideVideo video={video} />}
     </div>
   );
 };
