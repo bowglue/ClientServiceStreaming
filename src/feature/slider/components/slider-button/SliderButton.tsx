@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import LeftSliderButton from "../../../../assets/slider-button/left_slider_button.png";
+import RightSliderButton from "../../../../assets/slider-button/right_slider_button.png";
 import "./SliderButton.css";
 
 interface SliderButtonPropTypes {
@@ -26,7 +28,7 @@ const SliderButton = ({
               onChangePage(-1);
             }}
           >
-            <img src="/icon/left_slider_button.png" alt="Right button" />
+            <img src={LeftSliderButton} alt="Right button" />
           </span>
         )}
       </span>
@@ -40,7 +42,7 @@ const SliderButton = ({
             onChangePage(1);
           }}
         >
-          <img src="/icon/right_slider_button.png" alt="Right button" />
+          <img src={RightSliderButton} alt="Right button" />
         </span>
       </span>
     </>

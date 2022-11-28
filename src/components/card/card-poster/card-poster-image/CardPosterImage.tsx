@@ -22,6 +22,7 @@ const CardPosterImage = ({
       style={{ borderRadius: cardActive ? "10px 0 0 10px" : "10px" }}
     >
       <img
+        className="card-poster-image"
         style={{ width: "100%" }}
         src={"data:image/webp;base64," + cardImage}
         alt="Poster"

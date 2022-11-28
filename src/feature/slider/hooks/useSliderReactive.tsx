@@ -31,9 +31,9 @@ const useSliderReactive = () => {
   const windowResize = () => {
     if (window.innerWidth <= 1400) {
       sliderReactiveInfoRef.current = {
-        cardsPerPage: 4,
-        cardWidth: 100 / 4,
-        translateLength: -(100 + 100 / 4),
+        cardsPerPage: 3,
+        cardWidth: 100 / 3,
+        translateLength: -(100 + 100 / 3),
         prevCardsPerPage: sliderReactiveInfoRef.current.cardsPerPage,
       };
 

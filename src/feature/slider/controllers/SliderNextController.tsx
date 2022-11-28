@@ -204,15 +204,8 @@ export class SliderNextController extends SliderController {
     }
   }
 
-  override translatePosterCards(index: number): string {
-    switch (index) {
-      case 2 * this.sliderReactive.current.cardsPerPage - 1:
-        return "left";
-      case 2 * this.sliderReactive.current.cardsPerPage:
-        return "left";
-      default:
-        return "right";
-    }
+  override translatePosterCards(): number {
+    return this.sliderReactive.current.cardsPerPage * 2;
   }
 }
 

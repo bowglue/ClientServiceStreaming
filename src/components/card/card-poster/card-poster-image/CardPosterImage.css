@@ -3,6 +3,15 @@
   aspect-ratio: 2/3;
   position: relative;
   border-radius: 10px;
+  background-color: black;
+}
+
+.card-poster-image {
+  mask-image: linear-gradient(
+    to bottom,
+    rgb(0, 0, 0, 1) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .card-poster-gradient-image-default {

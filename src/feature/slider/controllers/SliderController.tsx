@@ -33,8 +33,8 @@ export abstract class SliderController {
   scaleWideOrigin(index: number): string {
     return "";
   }
-  translatePosterCards(index: number): string {
-    return "";
+  translatePosterCards(): number {
+    return 0;
   }
 
   handleTranslateDurationContentPosition(incrementator: number): void {

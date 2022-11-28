@@ -8,12 +8,19 @@ import SliderNextController from "../controllers/SliderNextController";
 import useSliderReactive from "./useSliderReactive";
 
 const useSliderParams = (designContext: string) => {
+  const emptyVideo: VideoInfo = {
+    name: "",
+    wide_image: "",
+    title_image: "",
+    poster_image: "",
+    focus_image: "",
+  };
   const { sliderReactiveCss, sliderReactiveInfoRef } = useSliderReactive();
   const totalCardsRef = useRef<number>(0);
   const cardIncrementRef = useRef<number>(0);
   const slideRef = useRef<boolean>(false);
   const [translation, setTranslation] = useState<string>("");
-  const [videos, setVideos] = useState<VideoInfo[]>([]);
+  const [videos, setVideos] = useState<VideoInfo[]>(Array(7).fill(emptyVideo));
 
   const handleTranslation = (translation: string): void => {
     setTranslation(translation);

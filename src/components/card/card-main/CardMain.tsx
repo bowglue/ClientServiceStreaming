@@ -6,36 +6,38 @@ import {
   DesignContext,
 } from "../../../context/SliderContext";
 import VideoInfo from "../../../interface/VideoInterface";
-import usePlayer from "../../../hooks/usePlayer";
 import CardHoverController from "../card-hover-controller/CardHoverController";
 import CardHoverPosterController from "../card-hover-controller/CardHoverPosterController";
 import CardHoverWideController from "../card-hover-controller/CardHoverWideController";
 import CardPosterHover from "../card-hover/card-poster-hover/CardPosterHover";
 import CardWideHover from "../card-hover/card-wide-hover/CardWideHover";
+import CardLoading from "../card-loading/CardLoading";
 import "./CardMain.css";
 
 interface cardSliderPropsType {
   video: VideoInfo;
   scaleWideOrigin: string;
-  translatePosterCards: string;
-  sliderRef: HTMLDivElement;
+  translatePosterCards: number;
+  sliderMainRef: HTMLDivElement;
   width: string;
   padding: string;
   index: number;
+  loading: boolean;
 }
 
 const CardMain = ({
   video,
   scaleWideOrigin,
   translatePosterCards,
-  sliderRef,
+  sliderMainRef,
   width,
   padding,
   index,
+  loading,
 }: cardSliderPropsType) => {
   const [cardActive, setCardActive] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-  const hoverController = useRef<CardHoverController | null>(null);
+  const hoverController = useRef<CardHoverController>();
   const designContext = useContext(DesignContext);
 
   useEffect(() => {
@@ -44,14 +46,11 @@ const CardMain = ({
 
   const handleHoverController = (): void => {
     switch (designContext) {
-      case WIDECONTEXT:
-        hoverController.current = new CardHoverWideController(300);
-        break;
       case POSTERCONTEXT:
         hoverController.current = new CardHoverPosterController(500);
         break;
-
       default:
+        hoverController.current = new CardHoverWideController(300);
         break;
     }
   };
@@ -61,7 +60,7 @@ const CardMain = ({
       handleCardActive,
       translatePosterCards,
       cardRef.current!,
-      sliderRef,
+      sliderMainRef,
       index
     );
   };
@@ -70,13 +69,23 @@ const CardMain = ({
     hoverController.current?.handleMouseLeave(
       handleCardActive,
       cardRef.current!,
-      sliderRef
+      sliderMainRef
     );
   };
 
   const handleCardActive = (isCardActive: boolean): void => {
     setCardActive(isCardActive);
   };
+
+  if (loading)
+    return (
+      <div
+        className={`card-main-container ${index + 1}`}
+        style={{ width: width, padding: padding }}
+      >
+        <CardLoading designContext={designContext} />
+      </div>
+    );
 
   return (
     <div
@@ -110,9 +119,9 @@ const CardMain = ({
 
 CardMain.propTypes = {
   scaleWideOrigin: PropTypes.string.isRequired,
-  translatePosterCards: PropTypes.string.isRequired,
+  translatePosterCards: PropTypes.number.isRequired,
   video: PropTypes.object.isRequired,
-  sliderRef: PropTypes.object.isRequired,
+  // sliderMainRef: PropTypes.object.isRequired,
   width: PropTypes.string.isRequired,
   padding: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
