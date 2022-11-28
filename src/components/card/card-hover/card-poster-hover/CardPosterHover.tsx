@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { MouseEventHandler } from "react";
 import VideoInfo from "../../../../interface/VideoInterface";
-import CardActive from "../../card-active/CardActive";
-import CardPosterImage from "../../card-image/card-poster-image/CardPosterImage";
+import CardPosterImage from "../../card-poster/card-poster-image/CardPosterImage";
+import CardPosterVideo from "../../card-poster/card-poster-video/CardPosterVideo";
 
 import "./CardPosterHover.css";
 
@@ -32,7 +32,7 @@ const CardPosterHover = ({
         cardImage={video.poster_image}
         titleImage={video.title_image}
       />
-      {cardActive && <CardActive video={video} />}
+      {cardActive && <CardPosterVideo video={video} />}
     </div>
   );
 };

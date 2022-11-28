@@ -4,7 +4,7 @@ export abstract class CardHoverController {
 
   handleMouseEnter(
     handleCardActive: Function,
-    translatePosterCards: string,
+    translatePosterCards: number,
     cardRef?: HTMLDivElement | undefined,
     sliderRef?: HTMLDivElement | undefined,
     index?: number | undefined
@@ -33,7 +33,7 @@ export abstract class CardHoverController {
   }
 
   mouseEnterImplementation(
-    translatePosterCards: string,
+    translatePosterCards: number,
     cardRef?: HTMLDivElement | undefined,
     sliderRef?: HTMLDivElement | undefined,
     index?: number | undefined

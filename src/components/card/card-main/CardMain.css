@@ -1,0 +1,6 @@
+.card-main-container {
+  box-sizing: border-box;
+  display: inline-block;
+  white-space: normal;
+  vertical-align: bottom;
+}

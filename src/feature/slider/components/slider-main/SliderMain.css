@@ -1,0 +1,18 @@
+.slider-main-container {
+  box-sizing: border-box;
+  position: relative;
+}
+
+.slider-container:hover {
+  z-index: 1;
+}
+
+.slider-content {
+  white-space: nowrap;
+  position: relative;
+}
+
+.slider-animation {
+  pointer-events: none;
+  transition: transform 700ms ease;
+}
